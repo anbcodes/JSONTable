@@ -77,8 +77,6 @@
 import dot from 'dot-object';
 import Vue from 'vue';
 
-console.log(Vue?.JSONSimpleEditor?.components ?? {});
-
 export default {
   name: 'Table',
   props: {
@@ -90,12 +88,11 @@ export default {
     level: Number,
   },
 
-  components: Vue?.JSONSimpleEditor?.components ?? {},
+  components: Vue.JSONSimpleEditor ? Vue.JSONSimpleEditor.components || {} : {},
 
   computed: {
     formatPart() {
-      console.log(this.formatPath);
-      return dot.pick(this.formatPath, this.format);
+      return this.format[this.formatPath]
     },
 
     mainFormat() {
@@ -111,20 +108,11 @@ export default {
 
     create() {
       const newPart = this.createPart();
-      console.log(this.data, this.data, newPart);
 
-      if (!this.pathForData) {
-        const partParent = [...this.data, newPart[0]];
-        // if (this.level === 1) {
-        //   partParent.$parent = this.allData;
-        // } else {
-        //   partParent.$parent = this.data.$parent;
-        // }
-        newPart[0].$parent = partParent;
-        this.$emit('update:data', partParent);
-        return;
-      }
-      dot.str(this.pathForData, [...this.data, ...newPart], this.data);
+      const partParent = [...this.data, newPart[0]];
+      newPart[0].$parent = partParent;
+      this.$emit('update:data', partParent);
+      return;
     },
 
     createPart() {
@@ -136,7 +124,6 @@ export default {
           part[0][formatPart] = '';
         } else if (!['String', 'Number', 'Boolean'].includes(type)) {
           part[0][formatPart] = [];
-          // part[0][formatPart].$parent = this.data;
         } else if (type === 'String') {
           part[0][formatPart] = '';
         } else if (type === 'Number') {
@@ -151,33 +138,8 @@ export default {
 
     delete(index) {
       delete this.data[index];
-      dot.str(this.dataPath, this.data.filter(v => v));
+      this.$emit('update:data', this.data.filter(v => v));
     },
-  },
-};
-// eslint-disable-next-line
-const data = {
-
-};
-// eslint-disable-next-line
-const sampleFormat = {
-  items: 'Array:item',
-  item: {
-    name: 'String',
-    color: 'Colors',
-    icon: 'Icon',
-    cost: 'Array:Cost',
-    generate: 'Array:Generate',
-  },
-
-  Cost: {
-    item: 'Items',
-    amount: 'Number',
-  },
-
-  Generate: {
-    item: 'Items',
-    amount: 'Number',
   },
 };
 </script>
