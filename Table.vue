@@ -8,7 +8,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="(item) in Object.keys(data || {})"
+        v-for="(item, i) in Object.keys(data || {})"
         :key="JSON.stringify(item)"
       >
         <td v-for="property in Object.keys(mainFormat)" :key="property">
@@ -63,6 +63,11 @@
               @blur="data[item][property] = currentEditing || data[item][property]"
             />
           </template>
+          <v-btn @click="deleteItem(i)" icon>
+            <v-icon>
+              mdi-minus
+            </v-icon>
+          </v-btn>
         </td>
       </tr>
       <tr class="justify-center">
@@ -74,7 +79,6 @@
   </v-simple-table>
 </template>
 <script>
-import dot from 'dot-object';
 import Vue from 'vue';
 
 export default {
