@@ -4,7 +4,7 @@
       <th
         v-for="property in [...Object.keys(mainFormat), 'Remove']"
         :key="property"
-      >{{property}}</th>
+      >{{property.replace(/([a-z])([A-Z])|(_)([A-z])|(-)([A-z])/, '$1 $2').charAt(0).toUpperCase() + property.replace(/([a-z])([A-Z])|(_)([A-z])|(-)([A-z])/, '$1 $2').slice(1)}}</th>
     </thead>
     <tbody>
       <tr
