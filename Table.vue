@@ -141,7 +141,7 @@ export default {
       return part;
     },
 
-    delete(index) {
+    deleteItem(index) {
       delete this.data[index];
       this.$emit('update:data', this.data.filter(v => v));
     },
