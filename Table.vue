@@ -16,7 +16,7 @@
             :value="data[item][property]"
             @input="currentEditing = arguments[0]"
             @click="currentEditing = ''"
-            @blur="data[item][property] = currentEditing || data[item][property]"
+            @blur="data[item][property] = +currentEditing || data[item][property]"
             v-if="mainFormat[property] === 'Number'"
             type="number"
           />
