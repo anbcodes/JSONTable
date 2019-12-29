@@ -79,6 +79,7 @@
   </v-simple-table>
 </template>
 <script>
+import dot from 'dot-object';
 import Vue from 'vue';
 
 export default {
@@ -96,7 +97,7 @@ export default {
 
   computed: {
     formatPart() {
-      return this.format[this.formatPath]
+      return dot.pick(this.formatPart, this.format);
     },
 
     mainFormat() {
