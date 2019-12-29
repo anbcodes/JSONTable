@@ -2,7 +2,7 @@
   <v-simple-table>
     <thead>
       <th
-        v-for="property in Object.keys(mainFormat)"
+        v-for="property in [...Object.keys(mainFormat), 'Remove']"
         :key="property"
       >{{property}}</th>
     </thead>
@@ -63,12 +63,12 @@
               @blur="data[item][property] = currentEditing || data[item][property]"
             />
           </template>
-          <v-btn @click="deleteItem(i)" icon>
-            <v-icon>
-              mdi-minus
-            </v-icon>
-          </v-btn>
         </td>
+        <v-btn @click="deleteItem(i)" icon>
+          <v-icon>
+            mdi-minus
+          </v-icon>
+        </v-btn>
       </tr>
       <tr class="justify-center">
         <v-btn @click="create()" icon>
