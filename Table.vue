@@ -97,7 +97,7 @@ export default {
 
   computed: {
     formatPart() {
-      return dot.pick(this.formatPart, this.format);
+      return dot.pick(this.formatPath, this.format);
     },
 
     mainFormat() {
